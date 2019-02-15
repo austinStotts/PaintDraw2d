@@ -31,6 +31,10 @@ class App extends PureComponent {
         newY = i*this.state.cellSize + -19;
       }
     }
+    if(newX === 1) newX = 0;
+    if(newY === 1) newY = 0;
+    console.log(newX)
+    console.log(newY)
     return [newX,newY]
   }
 
@@ -39,19 +43,23 @@ class App extends PureComponent {
 
     let c = document.getElementById("canvas").getContext("2d");
     c.fillStyle = "black";
-    for(let i = 1; i < 15; i++) {
+    for(let i = 1; i < this.state.m; i++) {
       c.fillRect(i * 20, 0, 1, 300);
     }
-    for(let i = 1; i < 15; i++) {
+    for(let i = 1; i < this.state.n; i++) {
       c.fillRect(0, i * 20, 300, 1);
     }
   }
 
   colorCell (e) {
     let cords = this.locate(e.clientX, e.clientY);
+    let xW = 19;
+    let yW = 19;
+    if(cords[0] === 0) xW = 20;
+    if(cords[1] === 0) yW = 20;
     let c = document.getElementById("canvas").getContext("2d");
     c.fillStyle = "red";
-    c.fillRect(cords[0],cords[1],19,19);
+    c.fillRect(cords[0],cords[1],xW,yW);
   }
 
   componentDidMount () {
